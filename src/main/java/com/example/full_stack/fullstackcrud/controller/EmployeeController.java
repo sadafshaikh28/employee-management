@@ -32,10 +32,15 @@ public class EmployeeController {
     public String searchEmployeeById(@ModelAttribute("employeeToSearch") Employee employee, Model model) {
         long searchId = employee.getId();
         Employee searchedEmployee = employeeService.searchEmployeeById(searchId);
-        if(searchedEmployee == null) return "redirect:/?doesNotExists";
+        if(searchedEmployee == null) return "redirect:/";
         else {
             model.addAttribute("searchedEmployee", searchedEmployee);
-            return "searchedEmployee";
+
+            List<Employee> employees = new ArrayList<>();
+            employees.add(searchedEmployee);
+            model.addAttribute("employeesList", employees);
+
+            return "index";
         }
     }
 
