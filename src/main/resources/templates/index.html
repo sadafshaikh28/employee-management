@@ -1,0 +1,86 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous">
+    </script>
+
+</head>
+
+<body>
+
+    <div class="jumbotron p-2 m-2 bg-dark text-white">
+        <h2 class="display-4">Employee Management System</h2>
+        <hr class="my-3">
+        <p class="lead">This is a web application to manage employees of an organization.</p>
+    </div>
+
+    <div class="container">
+
+        <h1 class="h4 text-center text-white rounded-lg bg-primary p-2">All Employees</h1>
+
+        <table class="table table-dark table-hover table-bordered text-center">
+            <thead class="thead-dark">
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Actions</th>
+            </thead>
+            <tbody>
+                <tr th:each="employee : ${employeesList}">
+                    <td th:text="${employee.firstName}" scope="row"></td>
+                    <td th:text="${employee.lastName}" scope="row"></td>
+                    <td th:text="${employee.email}" scope="row"></td>
+                    <td>
+                        <a th:href="@{/updateEmployeee/{id}(id=${employee.id})}"><button type="button" class="btn btn-info">Update</button></a>
+                        <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}"><button type="button" class="btn btn-danger">Delete</button></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/addEmployee}"><button type="button" class="btn btn-success mb-2">Add Employee</button></a>
+
+        <div th:if="${totalPages > 1}">
+            <div class="row col-sm-10">
+                <div class="col-sm-2">
+                    Total Employees: <span th:text="${totalEmployees}"></span>
+                </div>
+                <div class="col-sm-1">
+                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+                        <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                    </span>
+                </div>
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+                    <span th:unless="${currentPage < totalPages}">Next</span>
+                </div>
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}}">Last</a>
+                    <span th:unless="${currentPage < totalPages}">Last</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
