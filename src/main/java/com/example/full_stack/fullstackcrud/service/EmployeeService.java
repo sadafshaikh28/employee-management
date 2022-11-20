@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 public interface EmployeeService {
     List<Employee> getAllEmployees();
+    Employee searchEmployeeById(long searchId);
     void saveEmployee(Employee employee);
     Employee getEmployeeById(Long id);
     void deleteEmployeeById(Long id);

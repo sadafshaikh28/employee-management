@@ -35,8 +35,24 @@
 
     <div class="container">
 
-        <h1 class="h4 text-center text-white rounded-lg bg-primary p-2">All Employees</h1>
-
+        <div class="container mb-1">
+            <div class="row rounded-lg bg-primary p-2">
+                <div class="col-6">
+                    <h1 class="h4 text-white">All Employees</h1>
+                </div>
+                <div class="col-6">
+                    <form th:action="@{/}" th:object="${employeeToSearch}" method="POST">
+                        <div class="input-group">
+                            <input type="number" th:field="*{id}" class="form-control" placeholder="Employee ID">
+                            <div class="input-group-append">
+                              <button type="submit" class="btn btn-dark">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
         <table class="table table-dark table-hover table-bordered text-center">
             <thead class="thead-dark">
                 <th scope="col">ID</th>

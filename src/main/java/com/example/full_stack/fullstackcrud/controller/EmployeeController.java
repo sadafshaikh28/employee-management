@@ -1,5 +1,6 @@
 package com.example.full_stack.fullstackcrud.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.full_stack.fullstackcrud.model.Employee;
@@ -25,6 +26,17 @@ public class EmployeeController {
     @RequestMapping(method = RequestMethod.GET, value = {"/", "/home"})
     public String employeesHomePage(Model model) {
         return findPaginated(1, model);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = {"/", "/home"})
+    public String searchEmployeeById(@ModelAttribute("employeeToSearch") Employee employee, Model model) {
+        long searchId = employee.getId();
+        Employee searchedEmployee = employeeService.searchEmployeeById(searchId);
+        if(searchedEmployee == null) return "redirect:/?doesNotExists";
+        else {
+            model.addAttribute("searchedEmployee", searchedEmployee);
+            return "searchedEmployee";
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/addEmployee")
@@ -58,11 +70,14 @@ public class EmployeeController {
     @RequestMapping(method = RequestMethod.GET, value = "/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
 
+        Employee employeeToSearch = new Employee();
         int pageSize = 5;
 
         Page<Employee> page = employeeService.findPaginated(pageNo, pageSize);
         List<Employee> employeesList = page.getContent();
+        
 
+        model.addAttribute("employeeToSearch", employeeToSearch);
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalEmployees", page.getTotalElements());
