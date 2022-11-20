@@ -39,6 +39,7 @@
 
         <table class="table table-dark table-hover table-bordered text-center">
             <thead class="thead-dark">
+                <th scope="col">ID</th>
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">Email</th>
@@ -46,6 +47,7 @@
             </thead>
             <tbody>
                 <tr th:each="employee : ${employeesList}">
+                    <td th:text="${employee.id}" scope="row"></td>
                     <td th:text="${employee.firstName}" scope="row"></td>
                     <td th:text="${employee.lastName}" scope="row"></td>
                     <td th:text="${employee.email}" scope="row"></td>
