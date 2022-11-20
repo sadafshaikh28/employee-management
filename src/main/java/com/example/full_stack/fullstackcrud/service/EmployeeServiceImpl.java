@@ -39,8 +39,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = null;
         if(optionalEmployee.isPresent()) {
             employee = optionalEmployee.get();
-        } else {
-            throw new RuntimeException("Employee with id:" + id + " not found.");
         }
         return employee;
     }

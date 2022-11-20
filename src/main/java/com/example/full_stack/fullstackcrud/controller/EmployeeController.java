@@ -32,7 +32,7 @@ public class EmployeeController {
     public String searchEmployeeById(@ModelAttribute("employeeToSearch") Employee employee, Model model) {
         long searchId = employee.getId();
         Employee searchedEmployee = employeeService.searchEmployeeById(searchId);
-        if(searchedEmployee == null) return "redirect:/";
+        if(searchedEmployee == null) return "redirect:/?query=noSuchEmployee";
         else {
             model.addAttribute("searchedEmployee", searchedEmployee);
 
