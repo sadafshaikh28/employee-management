@@ -58,7 +58,7 @@ public class EmployeeController {
     @RequestMapping(method = RequestMethod.GET, value = "/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
 
-        int pageSize = 3;
+        int pageSize = 5;
 
         Page<Employee> page = employeeService.findPaginated(pageNo, pageSize);
         List<Employee> employeesList = page.getContent();
