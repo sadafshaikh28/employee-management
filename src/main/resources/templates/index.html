@@ -62,19 +62,27 @@
         <a th:href="@{/addEmployee}"><button type="button" class="btn btn-success mb-2">Add Employee</button></a>
 
         <div th:if="${totalPages > 1}">
-            <div class="row mb-2">
-                <div class="col-2 border border-primary rounded">
+            <div class="row mb-2 border border-primary rounded">
+                <div class="col-2">
                     <div class="font-weight-bold">
                         Total Employees: <span class="font-italic" th:text="${totalEmployees}"></span>
                     </div>
                 </div>
                 <div class="col-10">
                     <div class="row float-right">
-                        <div class="col-8">
+                        <div class="col-4">
                             <span th:each="i: ${#numbers.sequence(1, totalPages)}">
                                 <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
                                 <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
                             </span>
+                        </div>
+                        <div class="col-2">
+                            <a th:if="${currentPage > 1}" th:href="@{'/page/1'}">First</a>
+                            <span th:unless="${currentPage > 1}">First</span>
+                        </div>
+                        <div class="col-2">
+                            <a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1}}">Prev</a>
+                            <span th:unless="${currentPage > 1}">Prev</span>
                         </div>
                         <div class="col-2">
                             <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
